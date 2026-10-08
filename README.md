@@ -1,4 +1,4 @@
-# 🎵 tp_note IoC
+# 🎵 tp_note IoC - HUMBERT Thomas
 
 API permettant de retourner une musique choisie par un utilisateur en fonction du **jour de la semaine** et de la **météo**.
 
