@@ -1,14 +1,14 @@
 import "reflect-metadata";
 import { container } from "tsyringe";
+import "dotenv/config";
 
 // Ports
 import { MusicRepositoryPort } from "../ports/driven/musicRepositoryPort";
 import { UserRepositoryPort } from "../ports/driven/userRepositoryPort";
-import { MusicPort } from "../ports/driving/musicPort";
 import { EmailRepositoryPort } from "../ports/driven/emailRepositoryPort";
 import { SmsRepositoryPort } from "../ports/driven/smsRepositoryPort";
 
-// Adaptateurs (Dépôts)
+// Adapters
 import { MusicItuneRepo } from "../adapters/driven/musicItuneRepo";
 import { MusicDefaultRepo } from "../adapters/driven/musicDefaultRepo";
 import { MusicBrainzRepo } from "../adapters/driven/musicBrainzRepo";
@@ -23,33 +23,120 @@ import { MusicService } from "../services/musicService";
 // Factory
 import { MusicServiceFactory } from "../factories/musicServiceFactory";
 
-//Facade
-import { NotificationFacade } from "../facades/notification";
-// Contrôleur
+// Controller
 import { MusicController } from "../adapters/driving/musicController";
 
-// 1. Enregistrement des dépôts
-container.register<MusicRepositoryPort>("MusicItuneRepo", { useClass: MusicItuneRepo });
-container.register<MusicRepositoryPort>("MusicDefaultRepo", { useClass: MusicDefaultRepo });
-container.register<MusicRepositoryPort>("MusicBrainzRepo", { useClass: MusicBrainzRepo });
-container.register<UserRepositoryPort>("UserRepositoryPort", { useClass: UserJsonRepo });
-container.register<MusicRepositoryPort>("MusicRepositoryPort", { useClass: MusicItuneRepo });
-container.register<EmailRepositoryPort>("EmailRepositoryPort",{ useClass: EmailRepo });
-container.register<SmsRepositoryPort>("SmsRepositoryPort",{ useClass: SmsRepo });
+// Facade
+import { NotificationFacade } from "../facades/notification";
 
-container.register(NotificationFacade, {useClass: NotificationFacade});
 
-// 2. Enregistrement des sous-services
-container.register(MusicService, { useClass: MusicService });
-container.register(DefaultMusicService, { useClass: DefaultMusicService });
+// ========================================
+// Music repositories
+// ========================================
 
-// 3. Enregistrement du service principal de musique
-container.register<MusicPort>("MusicService", { useClass: MusicService });
+// Default music repository
+container.register<MusicRepositoryPort>(
+    "MusicDefaultRepo",
+    {
+        useClass: MusicDefaultRepo
+    }
+);
 
-// 4. Enregistrement de la Factory
-container.register(MusicServiceFactory, { useClass: MusicServiceFactory });
 
-// 5. Enregistrement du contrôleur
-container.register(MusicController, { useClass: MusicController });
+// Main music repository
+const musicPlayer = process.env.MUSIC_PLAYER;
+
+switch (musicPlayer) {
+
+    case "ITUNES":
+        container.register<MusicRepositoryPort>(
+            "MusicRepositoryPort",
+            {
+                useClass: MusicItuneRepo
+            }
+        );
+        break;
+
+    case "MUSICBRAINZ":
+        container.register<MusicRepositoryPort>(
+            "MusicRepositoryPort",
+            {
+                useClass: MusicBrainzRepo
+            }
+        );
+        break;
+
+    default:
+        throw new Error(
+            `Invalid MUSIC_PLAYER value: "${musicPlayer}". ` +
+            `Expected "ITUNES" or "MUSICBRAINZ".`
+        );
+}
+
+
+// ========================================
+// User repository
+// ========================================
+
+container.register<UserRepositoryPort>(
+    "UserRepositoryPort",
+    {
+        useClass: UserJsonRepo
+    }
+);
+
+
+// ========================================
+// Services
+// ========================================
+
+container.register(MusicService, {
+    useClass: MusicService
+});
+
+container.register(DefaultMusicService, {
+    useClass: DefaultMusicService
+});
+
+
+// ========================================
+// Factory
+// ========================================
+
+container.register(MusicServiceFactory, {
+    useClass: MusicServiceFactory
+});
+
+
+// ========================================
+// Notifications
+// ========================================
+
+container.register<EmailRepositoryPort>(
+    "EmailRepositoryPort",
+    {
+        useClass: EmailRepo
+    }
+);
+
+container.register<SmsRepositoryPort>(
+    "SmsRepositoryPort",
+    {
+        useClass: SmsRepo
+    }
+);
+
+container.register(NotificationFacade, {
+    useClass: NotificationFacade
+});
+
+
+// ========================================
+// Controller
+// ========================================
+
+container.register(MusicController, {
+    useClass: MusicController
+});
 
 export { container };

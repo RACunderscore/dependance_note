@@ -203,6 +203,70 @@ Les tests couvrent notamment :
 
 ---
 
+## Configuration du lecteur musical
+
+Le lecteur musical utilisé par l'application peut être configuré à l'aide de la variable d'environnement `MUSIC_PLAYER` dans le fichier `.env`.
+
+Deux lecteurs sont disponibles :
+
+* `ITUNES` → utilise `MusicItuneRepo`
+* `MUSICBRAINZ` → utilise `MusicBrainzRepo`
+
+### Exemple de configuration
+
+Pour utiliser iTunes :
+
+```env
+MUSIC_PLAYER=ITUNES
+```
+
+Pour utiliser MusicBrainz :
+
+```env
+MUSIC_PLAYER=MUSICBRAINZ
+```
+
+Cette configuration est utilisée par le conteneur IoC afin de sélectionner automatiquement l'adapter correspondant pour le `MusicService`.
+
+```text
+                    MUSIC_PLAYER
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+           ITUNES              MUSICBRAINZ
+              │                     │
+              ▼                     ▼
+      MusicItuneRepo         MusicBrainzRepo
+              │                     │
+              └──────────┬──────────┘
+                         │
+               MusicRepositoryPort
+                         │
+                         ▼
+                  MusicService
+```
+
+Le `MusicDefaultRepo` est indépendant de cette configuration et reste utilisé par le `DefaultMusicService` pour fournir une musique par défaut en cas d'erreur ou de paramètre invalide. 
+Les données présentes dans le projet utilise le lecteur ITUNES pour les tests.
+
+### Valeur obligatoire
+
+La variable `MUSIC_PLAYER` doit être définie dans le fichier `.env` avec l'une des valeurs suivantes :
+
+```env
+MUSIC_PLAYER=ITUNES
+```
+
+ou
+
+```env
+MUSIC_PLAYER=MUSICBRAINZ
+```
+
+Une valeur différente provoque une erreur lors du démarrage de l'application afin d'éviter une configuration incorrecte.
+
+---
+
 ## ▶️ Résumé
 
 Pour démarrer le projet :
