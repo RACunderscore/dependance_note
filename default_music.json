@@ -1,0 +1,44 @@
+{
+  "-1": {
+    "id": -1,
+    "title": "Bohemian Rhapsody",
+    "artist": "Queen",
+    "album": "A Night at the Opera"
+  },
+  "-2": {
+    "id": -2,
+    "title": "Blinding Lights",
+    "artist": "The Weeknd",
+    "album": "After Hours"
+  },
+  "-3": {
+    "id": -3,
+    "title": "Hotel California",
+    "artist": "Eagles",
+    "album": "Hotel California"
+  },
+  "-4": {
+    "id": -4,
+    "title": "Billie Jean",
+    "artist": "Michael Jackson",
+    "album": "Thriller"
+  },
+  "-5": {
+    "id": -5,
+    "title": "Shape of You",
+    "artist": "Ed Sheeran",
+    "album": "÷ (Divide)"
+  },
+  "-6": {
+    "id": -6,
+    "title": "Uptown Funk",
+    "artist": "Mark Ronson ft. Bruno Mars",
+    "album": "Uptown Special"
+  },
+  "-7": {
+    "id": -7,
+    "title": "Sunday Morning",
+    "artist": "Maroon 5",
+    "album": "Songs About Jane"
+  }
+}

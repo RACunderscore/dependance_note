@@ -1,0 +1,66 @@
+[
+  {
+    "id": 0,
+    "music_choice": {
+      "LUNDI": {
+        "SOLEIL": 1440841478,
+        "PLUIE": 1440841480,
+        "NEIGE": 1440841481,
+        "NUAGEUX": 1440841483
+      },
+      "MARDI": {
+        "SOLEIL": 1592606132,
+        "PLUIE": 1592606135,
+        "NEIGE": 1592606136,
+        "NUAGEUX": 1592606138
+      },
+      "MERCREDI": {
+        "SOLEIL": 1440838883,
+        "PLUIE": 1440838885,
+        "NEIGE": 1440838886,
+        "NUAGEUX": 1440838888
+      },
+      "JEUDI": {
+        "SOLEIL": 201281527,
+        "PLUIE": 201281528,
+        "NEIGE": 201281530,
+        "NUAGEUX": 201281532
+      },
+      "VENDREDI": {
+        "SOLEIL": 1440855225,
+        "PLUIE": 1440855228,
+        "NEIGE": 1440855230,
+        "NUAGEUX": 1440855232
+      },
+      "SAMEDI": {
+        "SOLEIL": 1440857771,
+        "PLUIE": 1440857773,
+        "NEIGE": 1440857775,
+        "NUAGEUX": 1440857777
+      },
+      "DIMANCHE": {
+        "SOLEIL": 1440860001,
+        "PLUIE": 1440860003,
+        "NEIGE": 1440860005,
+        "NUAGEUX": 1440860007
+      }
+    }
+  },
+  {
+    "id": 1,
+    "music_choice": {
+      "LUNDI": {
+        "SOLEIL": 1440841478,
+        "PLUIE": null,
+        "NEIGE": null,
+        "NUAGEUX": null
+      },
+      "MARDI": {
+        "SOLEIL": null,
+        "PLUIE": 1592606135,
+        "NEIGE": null,
+        "NUAGEUX": null
+      }
+    }
+  }
+]
